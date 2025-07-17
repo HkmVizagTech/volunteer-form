@@ -146,7 +146,7 @@ const VolunteerForm = () => {
         delete payload.tShirtSize;
         delete payload.needAccommodation;
       }
-      if (!payload.profession && isYoungBoy) payload.profession = 'Student';
+      // if (!payload.profession && isYoungBoy) payload.profession = 'Student';
       if (!payload.infoSource) payload.infoSource = 'Other';
       payload.referredBy = formData.contactPerson || 'Other';
       delete payload.contactPerson;
@@ -282,6 +282,7 @@ const VolunteerForm = () => {
             <FormControl>
               <FormLabel>Profession</FormLabel>
               <Select value={formData.profession} onChange={(e) => handleChange('profession', e.target.value)}>
+                <option>Choose Profession</option>
                 <option>Student</option>
                 <option>Working</option>
                 <option>Job Trails</option>
