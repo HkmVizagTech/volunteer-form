@@ -20,7 +20,9 @@ import {
 } from '@chakra-ui/react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
-import banner from "./assets/banner.jpeg"
+import banner from "./assets/banner.jpeg";
+
+// Devotee List
 const devotees = [
   { name: 'Sitanatha Dasa', img: 'https://www.harekrishnavizag.org/assets/img/about_1.jpg' },
   { name: 'Rama Dasa', img: 'https://www.harekrishnavizag.org/assets/img/about_1.jpg' },
@@ -43,7 +45,6 @@ const devotees = [
   { name: 'Ishan Krishna Dasa', img: 'https://www.harekrishnavizag.org/assets/img/about_1.jpg' },
   { name: 'Others', img: 'https://www.harekrishnavizag.org/assets/img/about_1.jpg' },
 ];
-
 
 const dates = ["August 14", "August 15", "August 16", "August 17"];
 const timeSlots = [
@@ -73,9 +74,9 @@ const VolunteerForm = () => {
 
   const [image, setImage] = useState(null); 
   const [imageFile, setImageFile] = useState(null); 
-  const webcamRef = useRef(null);
-
   const [loading, setLoading] = useState(false); 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const webcamRef = useRef(null);
   const toast = useToast();
 
   const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && formData.gender === 'Male';
@@ -91,18 +92,16 @@ const VolunteerForm = () => {
     setFormData((prev) => ({ ...prev, serviceAvailability: updated }));
   };
 
-
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImage(imageSrc);
-
     fetch(imageSrc)
       .then(res => res.blob())
       .then(blob => {
         const file = new File([blob], 'photo.png', { type: 'image/png' });
         setImageFile(file);
       });
-  }, [webcamRef]);
+  }, []);
 
   const handleRetake = () => {
     setImage(null);
@@ -121,7 +120,6 @@ const VolunteerForm = () => {
     if (isYoungBoy && !formData.collegeOrCompany.trim()) return 'College or Company name is required';
     if (isFullDayVolunteer && !formData.tShirtSize) return 'T-Shirt Size is required';
     if (isFullDayVolunteer && !formData.needAccommodation) return 'Accommodation info is required';
-
     if (!imageFile) return 'Photo is required. Please capture your photo below.';
     return null;
   };
@@ -146,8 +144,8 @@ const VolunteerForm = () => {
         delete payload.tShirtSize;
         delete payload.needAccommodation;
       }
-      // if (!payload.profession && isYoungBoy) payload.profession = 'Student';
       if (!payload.infoSource) payload.infoSource = 'Other';
+
       payload.referredBy = formData.contactPerson || 'Other';
       delete payload.contactPerson;
 
@@ -158,7 +156,6 @@ const VolunteerForm = () => {
       delete payload.tShirtSize;
 
       const formDataToSend = new FormData();
-      
       Object.entries(payload).forEach(([key, value]) => {
         if (Array.isArray(value)) {
           formDataToSend.append(key, JSON.stringify(value));
@@ -166,37 +163,19 @@ const VolunteerForm = () => {
           formDataToSend.append(key, value);
         }
       });
-   
+
       if (imageFile) {
         formDataToSend.append('image', imageFile);
       }
 
       await axios.post(
-        // 'https://vrc-server-110406681774.asia-south1.run.app/volunteerform/api/volunteers',
         "https://vrc-server-110406681774.asia-south1.run.app/volunteerform/api/volunteers",
         formDataToSend,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
 
       toast({ title: 'Success', description: 'Volunteer registered.', status: 'success', duration: 3000 });
-      setFormData({
-        name: '',
-        whatsappNumber: '',
-        dateOfBirth: '',
-        age: '',
-        gender: '',
-        maritalStatus: '',
-        profession: '',
-        collegeOrCompany: '',
-        location: '',
-        contactPerson: '',
-        infoSource: '',
-        serviceAvailability: [],
-        tShirtSize: '',
-        needAccommodation: ''
-      });
-      setImage(null);
-      setImageFile(null);
+      setFormSubmitted(true);
     } catch (err) {
       toast({
         title: 'Error',
@@ -210,6 +189,36 @@ const VolunteerForm = () => {
 
   return (
     <Box
+      p={6}
+      maxW="750px"
+      mx="auto"
+      bgSize="cover"
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      borderRadius="xl"
+      boxShadow="xl"
+      position="relative"
+      minHeight="600px"
+    >
+      {loading && (
+        <Center
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg="rgba(255,255,255,0.7)"
+          zIndex={99}
+          borderRadius="xl"
+          flexDirection="column"
+        >
+          <Spinner size="xl" color="teal.400" thickness="5px" />
+          <Text mt={4} fontWeight="bold" color="teal.700">Submitting...</Text>
+        </Center>
+      )}
+
+      {!formSubmitted ? (
+        <Box
       p={6}
       maxW="750px"
       mx="auto"
@@ -438,6 +447,28 @@ const VolunteerForm = () => {
           Submit
         </Button>
       </VStack>
+    </Box>
+      ) : (
+        <Center flexDirection="column" bg="whiteAlpha.900" p={6} borderRadius="xl" textAlign="center">
+          {/* <Heading size="lg" color="teal.600" mb={4}>🎉 Thank you for registering!</Heading>
+           */}<Heading size="lg" color="teal.600" mb={4}>
+  🎉 Thank you, {formData.name}, for registering!
+</Heading>
+          <Text fontSize="lg" color="gray.700" mb={6}>
+            You’ve successfully registered as a volunteer for Sri Krishna Janmashtami.
+          </Text>
+          <Text fontSize="md" color="gray.600" mb={4}>
+            Join our official volunteer WhatsApp group to stay updated.
+          </Text>
+          <Button
+            colorScheme="green"
+            size="lg"
+            onClick={() => window.open("https://chat.whatsapp.com/GgU2R9h292v1nnps0J9Mjl?mode=r_t", "_blank")}
+          >
+            Join WhatsApp Group
+          </Button>
+        </Center>
+      )}
     </Box>
   );
 };
