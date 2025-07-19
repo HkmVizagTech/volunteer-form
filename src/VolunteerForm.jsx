@@ -248,7 +248,7 @@ const VolunteerForm = () => {
       )}
         <Image src={banner} width={"100%"} />
       <VStack spacing={4} align="stretch" bg="whiteAlpha.900" p={6} borderRadius="xl">
-        <Heading size="lg" color="teal.600">Sri Krishna Janmashtami Volunteer Registration</Heading>
+        <Heading size="lg" color="#072561">Sri Krishna Janmashtami Volunteer Registration</Heading>
 
         <FormControl isRequired>
           <FormLabel>Name</FormLabel>
@@ -418,7 +418,7 @@ const VolunteerForm = () => {
         )}
 
         <Box mt={5}>
-          <Heading size="md" color="teal.500" mb={2}>Capture Your Photo (Required)</Heading>
+          <Heading size="md" color="#a6dbdc" mb={2}>Capture Your Photo (Required)</Heading>
           {!image ? (
             <>
              <Webcam
@@ -443,7 +443,7 @@ const VolunteerForm = () => {
           )}
         </Box>
 
-        <Button colorScheme="teal" size="lg" onClick={handleSubmit} isLoading={loading} loadingText="Submitting">
+        <Button colorScheme="#a6dbdc" size="lg" onClick={handleSubmit} isLoading={loading} loadingText="Submitting">
           Submit
         </Button>
       </VStack>
