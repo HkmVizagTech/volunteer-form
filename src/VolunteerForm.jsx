@@ -51,7 +51,7 @@ const timeSlots = [
   { label: "9am to 9pm (Full Day)", value: "Full Day" },
   { label: "2pm to 9pm (Half Day)", value: "Half Day 2pm" },
   { label: "4pm to 9pm(Half Day)", value: "Half Day 4pm" },
-  { label: "Not Possible this day", value: "Not Possible " }
+  { label: "Not Possible this day", value: "Not Possible" }
 ];
 
 const VolunteerForm = () => {
