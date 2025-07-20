@@ -418,7 +418,7 @@ const VolunteerForm = () => {
         )}
 
         <Box mt={5}>
-          <Heading size="md" color="#a6dbdc" mb={2}>Capture Your Photo (Required)</Heading>
+          <Heading size="md" color="teal.500" mb={2}>Capture Your Photo (Required)</Heading>
           {!image ? (
             <>
              <Webcam
@@ -443,7 +443,7 @@ const VolunteerForm = () => {
           )}
         </Box>
 
-        <Button colorScheme="#a6dbdc" size="lg" onClick={handleSubmit} isLoading={loading} loadingText="Submitting">
+        <Button colorScheme="teal" size="lg" onClick={handleSubmit} isLoading={loading} loadingText="Submitting">
           Submit
         </Button>
       </VStack>
