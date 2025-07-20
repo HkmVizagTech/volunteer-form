@@ -79,7 +79,10 @@ const VolunteerForm = () => {
   const webcamRef = useRef(null);
   const toast = useToast();
 
-  const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && formData.gender === 'Male' && formData.gender='Female';
+  // const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && formData.gender === 'Male' && formData.gender='Female';
+    // const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && formData.gender === 'Male' || formData.gender==='Female';
+  const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && (formData.gender === 'Male' || formData.gender === 'Female');
+
   const isFullDayVolunteer = formData.serviceAvailability.some((entry) => entry.timeSlot === 'Full Day');
 
   const handleChange = (field, value) => {
