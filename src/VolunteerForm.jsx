@@ -118,8 +118,8 @@ const VolunteerForm = () => {
     if (isYoungBoy && !formData.profession) return 'Profession is required';
     if (isYoungBoy && !formData.maritalStatus) return 'Marital Status is required';
     if (isYoungBoy && !formData.collegeOrCompany.trim()) return 'College or Company name is required';
-    if (isFullDayVolunteer && !formData.tShirtSize) return 'T-Shirt Size is required';
-    if (isFullDayVolunteer && !formData.needAccommodation) return 'Accommodation info is required';
+    // if (isFullDayVolunteer && !formData.tShirtSize) return 'T-Shirt Size is required';
+    // if (isFullDayVolunteer && !formData.needAccommodation) return 'Accommodation info is required';
     if (!imageFile) return 'Photo is required. Please capture your photo below.';
     return null;
   };
