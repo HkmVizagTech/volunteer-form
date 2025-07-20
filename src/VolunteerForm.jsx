@@ -79,7 +79,7 @@ const VolunteerForm = () => {
   const webcamRef = useRef(null);
   const toast = useToast();
 
-  const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && formData.gender === 'Male';
+  const isYoungBoy = Number(formData.age) > 0 && Number(formData.age) < 30 && formData.gender === 'Male' && formData.gender='Female';
   const isFullDayVolunteer = formData.serviceAvailability.some((entry) => entry.timeSlot === 'Full Day');
 
   const handleChange = (field, value) => {
@@ -404,7 +404,7 @@ const VolunteerForm = () => {
               </Select>
             </FormControl>
 
-            <FormControl>
+            {formData.gender==='Male' && <FormControl>
               <FormLabel>Need Accommodation?</FormLabel>
               <RadioGroup value={formData.needAccommodation} onChange={(val) => handleChange('needAccommodation', val)}>
                 <Stack direction="row">
@@ -413,7 +413,7 @@ const VolunteerForm = () => {
                 </Stack>
               </RadioGroup>
               <Text fontSize="sm" color="gray.500">Please confirm with Sitanatha Dasa - 9059162108</Text>
-            </FormControl>
+            </FormControl>}
           </>
         )}
 
