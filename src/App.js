@@ -12,11 +12,13 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import VolunteerForm from './VolunteerForm';
+import VolunteerNotice from './VolunteerNotice';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-    <VolunteerForm/>
+    {/* <VolunteerForm/> */}
+    <VolunteerNotice/>
     </ChakraProvider>
   );
 }
