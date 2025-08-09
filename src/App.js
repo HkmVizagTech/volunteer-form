@@ -13,12 +13,17 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import VolunteerForm from './VolunteerForm';
 import VolunteerNotice from './VolunteerNotice';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-    {/* <VolunteerForm/> */}
-    <VolunteerNotice/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<VolunteerNotice />} />
+          <Route path="/api/volunteerform" element={<VolunteerForm />} />
+        </Routes>
+      </Router>
     </ChakraProvider>
   );
 }
